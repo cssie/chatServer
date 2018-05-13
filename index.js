@@ -10,8 +10,12 @@ io.on('connection',function (socket) {
     console.log('我连上啦啦啦啦');
     socket.on('requestMessage',function (data) {
         console.log(data)
+        socket.broadcast.emit('sendMessage',{fromID:data.fromID,toID:data.toID,message:data.message});
         socket.emit('sendMessage',{fromID:data.fromID,toID:data.toID,message:data.message});
     })
+})
+io.on('error',function (err) {
+    console.log(err)
 })
 server.listen(3000);
 //连接数据库
